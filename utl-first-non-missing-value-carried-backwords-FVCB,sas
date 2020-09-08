@@ -1,104 +1,132 @@
-First non missing value carried backwords FVCB                                                                    
-                                                                                                                  
-github                                                                                                            
-https://tinyurl.com/y357nw64                                                                                      
-https://github.com/rogerjdeangelis/utl-first-non-missing-value-carried-backwords-FVCB                             
-                                                                                                                  
-Ingeneous algorithm by User31735                                                                                  
-     https://stackoverflow.com/users/3861199/user31735                                                            
-                                                                                                                  
-stackoverflow                                                                                                     
-https://tinyurl.com/y5re4j38                                                                                      
-https://stackoverflow.com/questions/63560423/missing-value-of-column-based-on-date-comparison-sql                 
-                                                                                                                  
-                                                                                                                  
-/*                   _                                                                                            
-(_)_ __  _ __  _   _| |_                                                                                          
-| | `_ \| `_ \| | | | __|                                                                                         
-| | | | | |_) | |_| | |_                                                                                          
-|_|_| |_| .__/ \__,_|\__|                                                                                         
-        |_|                                                                                                       
-*/                                                                                                                
-options missing='.';                                                                                              
-data have;                                                                                                        
- input DATE$ RATE;                                                                                                
-cards4;                                                                                                           
-31DEC2014 .                                                                                                       
-31DEC2015 .                                                                                                       
-31DEC2016 .                                                                                                       
-31DEC2017 0.1600                                                                                                  
-31DEC2018 0.1700                                                                                                  
-31DEC2019 0.1770                                                                                                  
-31JAN2014 .                                                                                                       
-31JAN2015 .                                                                                                       
-31JAN2016 .                                                                                                       
-31JAN2017 0.2600                                                                                                  
-31JAN2018 0.2700                                                                                                  
-31JAN2019 0.2770                                                                                                  
-;;;;                                                                                                              
-run;quit;                                                                                                         
-                                                                                                                  
-WORK.HAVE total obs=12                                                                                            
-                       | RULES                                                                                    
-   DATE       RATE     | RATE                                                                                     
-                       |                                                                                          
- 31DEC201     .        | 0.160                                                                                    
- 31DEC201     .        | 0.160                                                                                    
- 31DEC201     .        | 0.160                                                                                    
- 31DEC201    0.160     | 0.160  ** 0.160 was carried backward                                                     
- 31DEC201    0.170     | 0.170                                                                                    
- 31DEC201    0.177     | 0.177                                                                                    
-                                                                                                                  
- 31JAN201     .        | 0.260                                                                                    
- 31JAN201     .        | 0.260                                                                                    
- 31JAN201     .        | 0.260                                                                                    
- 31JAN201    0.260     | 0.260                                                                                    
- 31JAN201    0.270     | 0.270                                                                                    
- 31JAN201    0.277     | 0.277                                                                                    
-                                                                                                                  
-/*           _               _                                                                                    
-  ___  _   _| |_ _ __  _   _| |_                                                                                  
- / _ \| | | | __| `_ \| | | | __|                                                                                 
-| (_) | |_| | |_| |_) | |_| | |_                                                                                  
- \___/ \__,_|\__| .__/ \__,_|\__|                                                                                 
-                |_|                                                                                               
-*/                                                                                                                
-                                                                                                                  
- WORK.WANT total obs=12                                                                                           
-                                                                                                                  
-                                                                                                                  
-   RATE      DATE                                                                                                 
-                                                                                                                  
-  0.160    31DEC201                                                                                               
-  0.160    31DEC201                                                                                               
-  0.160    31DEC201                                                                                               
-  0.160    31DEC201                                                                                               
-  0.170    31DEC201                                                                                               
-  0.177    31DEC201                                                                                               
-  0.260    31JAN201                                                                                               
-  0.260    31JAN201                                                                                               
-  0.260    31JAN201                                                                                               
-  0.260    31JAN201                                                                                               
-  0.270    31JAN201                                                                                               
-  0.277    31JAN201                                                                                               
-                                                                                                                  
-/*                                                                                                                
- _ __  _ __ ___   ___ ___  ___ ___                                                                                
-| `_ \| `__/ _ \ / __/ _ \/ __/ __|                                                                               
-| |_) | | | (_) | (_|  __/\__ \__ \                                                                               
-| .__/|_|  \___/ \___\___||___/___/                                                                               
-|_|                                                                                                               
-*/                                                                                                                
-                                                                                                                  
-data want(drop=r);                                                                                                
-   do _n_=1 by 1 until (rate);   * do until non missing rate;                                                     
-      set have;                                                                                                   
-      r = rate;  * keep the non missing;                                                                          
-   end;                                                                                                           
-   do _n_=1 to _n_;                                                                                               
-      set have;                                                                                                   
-      rate=r;                                                                                                     
-      output;                                                                                                     
-   end;                                                                                                           
-run;quit;                                                                                                         
+Thanks, Mark                                                                                                                
+                                                                                                                            
+Replacing GitHub                                                                                                            
+                                                                                                                            
+   First non missing value carried backwords by group                                                                       
+                                                                                                                            
+     Solution by                                                                                                            
+         Keintz, Mark                                                                                                       
+         Handles 'by group processing'                                                                                      
+         mkeintz@wharton.upenn.edu                                                                                          
+                                                                                                                            
+         SAS-L                                                                                                              
+         https://listserv.uga.edu/cgi-bin/wa?A2=SAS-L;b73b5fc2.2009a                                                        
+                                                                                                                            
+GitHub                                                                                                                      
+https://tinyurl.com/y357nw64                                                                                                
+https://github.com/rogerjdeangelis/utl-first-non-missing-value-carried-backwords-FVCB                                       
+                                                                                                                            
+stackoverflow                                                                                                               
+https://tinyurl.com/y5re4j38                                                                                                
+https://stackoverflow.com/questions/63560423/missing-value-of-column-based-on-date-comparison-sql                           
+                                                                                                                            
+Intelligence is the ability and curiosity to formulate questions.                                                           
+                                                                                                                            
+Thanks user31735                                                                                                            
+https://stackoverflow.com/users/3861199/user31735                                                                           
+/*                   _                                                                                                      
+(_)_ __  _ __  _   _| |_                                                                                                    
+| | `_ \| `_ \| | | | __|                                                                                                   
+| | | | | |_) | |_| | |_                                                                                                    
+|_|_| |_| .__/ \__,_|\__|                                                                                                   
+        |_|                                                                                                                 
+*/                                                                                                                          
+                                                                                                                            
+/*                                                                                                                          
+Having said: "Of course this code would need modification if you have                                                       
+data sorted by ID/DATE and some id's end with a missing rate.  You need                                                     
+a way to avoid bringing a "future" value back from another id. "                                                            
+                                                                                                                            
+Not much change is needed - just the "until" condition and an added BY statement:                                           
+*/                                                                                                                          
+                                                                                                                            
+data have;                                                                                                                  
+input id DATE :date9. RATE;                                                                                                 
+format date date9.;                                                                                                         
+datalines;                                                                                                                  
+101 31DEC2014 .                                                                                                             
+101 31DEC2015 .                                                                                                             
+101 31DEC2016 .                                                                                                             
+101 31DEC2017 0.1600                                                                                                        
+101 31DEC2018 0.1700                                                                                                        
+101 31DEC2019 0.1770                                                                                                        
+101 31DEC2020 .                                                                                                             
+                                                                                                                            
+102 31JAN2014 .                                                                                                             
+102 31JAN2015 .                                                                                                             
+102 31JAN2016 .                                                                                                             
+102 31JAN2017 0.2600                                                                                                        
+102 31JAN2018 0.2700                                                                                                        
+102 31JAN2019 0.2770                                                                                                        
+102 31DEC2020 .                                                                                                             
+run;                                                                                                                        
+                                                                                                                            
+                                                                                                                            
+HAVE total obs=14                                                                                                           
+                            | RULES                                                                                         
+  ID      DATE        RATE  | RATE                                                                                          
+                            |                                                                                               
+ 101    31DEC2014     .     | 0.160                                                                                         
+ 101    31DEC2015     .     | 0.160                                                                                         
+ 101    31DEC2016     .     | 0.160                                                                                         
+ 101    31DEC2017    0.160  | 0.160  ** 0.160 was carried backward                                                          
+ 101    31DEC2018    0.170  |                                                                                               
+ 101    31DEC2019    0.177  |                                                                                               
+ 101    31DEC2020     .     | ====> do not reach into the next by group for non-                                            
+                            |                                                                                               
+ 102    31JAN2014     .     |  | 0.260                                                                                      
+ 102    31JAN2015     .     |  | 0.260                                                                                      
+ 102    31JAN2016     .     |  | 0.260                                                                                      
+ 102    31JAN2017    0.260  |  | 0.260 ** 0.260 was carried backward                                                        
+ 102    31JAN2018    0.270  |  | 0.270                                                                                      
+ 102    31JAN2019    0.277  |  | 0.277                                                                                      
+ 102    31DEC2020     .     |                                                                                               
+                                                                                                                            
+/*           _               _                                                                                              
+  ___  _   _| |_ _ __  _   _| |_                                                                                            
+ / _ \| | | | __| `_ \| | | | __|                                                                                           
+| (_) | |_| | |_| |_) | |_| | |_                                                                                            
+ \___/ \__,_|\__| .__/ \__,_|\__|                                                                                           
+                |_|                                                                                                         
+*/                                                                                                                          
+                                                                                                                            
+WANT total obs=14                                                                                                           
+                                                                                                                            
+  ID      DATE      RATE                                                                                                    
+                                                                                                                            
+ 101    31DEC2014  0.160                                                                                                    
+ 101    31DEC2015  0.160                                                                                                    
+ 101    31DEC2016  0.160                                                                                                    
+ 101    31DEC2017  0.160                                                                                                    
+ 101    31DEC2018  0.170                                                                                                    
+ 101    31DEC2019  0.177                                                                                                    
+ 101    31DEC2020   .                                                                                                       
+ 102    31JAN2014  0.260                                                                                                    
+ 102    31JAN2015  0.260                                                                                                    
+ 102    31JAN2016  0.260                                                                                                    
+ 102    31JAN2017  0.260                                                                                                    
+ 102    31JAN2018  0.270                                                                                                    
+ 102    31JAN2019  0.277                                                                                                    
+ 102    31DEC2020   .                                                                                                       
+                                                                                                                            
+/*                                                                                                                          
+ _ __  _ __ ___   ___ ___  ___ ___                                                                                          
+| `_ \| `__/ _ \ / __/ _ \/ __/ __|                                                                                         
+| |_) | | | (_) | (_|  __/\__ \__ \                                                                                         
+| .__/|_|  \___/ \___\___||___/___/                                                                                         
+|_|                                                                                                                         
+*/                                                                                                                          
+                                                                                                                            
+data want;                                                                                                                  
+  do _n_=1 by 1 until (rate or last.id);                                                                                    
+    set have;                                                                                                               
+    by id;                                                                                                                  
+  end;                                                                                                                      
+  do _n_=1 to _n_;                                                                                                          
+    set have (drop=rate);                                                                                                   
+    output;                                                                                                                 
+  end;                                                                                                                      
+run;quit;                                                                                                                   
+                                                                                                                            
+                                                                                      
                                                                                                                   
